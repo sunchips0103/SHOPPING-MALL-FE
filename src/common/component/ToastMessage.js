@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify"; //읽어보자
 import "react-toastify/dist/ReactToastify.css";
 
 const ToastMessage = () => {

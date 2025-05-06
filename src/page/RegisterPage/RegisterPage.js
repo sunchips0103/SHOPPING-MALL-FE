@@ -14,7 +14,7 @@ const RegisterPage = () => {
     name: "",
     password: "",
     confirmPassword: "",
-    policy: false,
+    policy: false,    //이용약관
   });
   const navigate = useNavigate();
   const [passwordError, setPasswordError] = useState("");
@@ -23,19 +23,19 @@ const RegisterPage = () => {
 
   const register = (event) => {
     event.preventDefault();
-    const { name, email, password, confirmPassword, policy } = formData;
-    const checkConfirmPassword = password === confirmPassword;
+    const { name, email, password, confirmPassword, policy } = formData;  //formData 읽어옴
+    const checkConfirmPassword = password === confirmPassword;    //비밀번호 일치 확인
     if (!checkConfirmPassword) {
       setPasswordError("비밀번호 중복확인이 일치하지 않습니다.");
       return;
     }
     if (!policy) {
-      setPolicyError(true);
+      setPolicyError(true); //이용약관 확인
       return;
     }
-    setPasswordError("");
-    setPolicyError(false);
-    dispatch(registerUser({ name, email, password, navigate }));
+    setPasswordError(""); //에러 기본값으로 다시 설정
+    setPolicyError(false); //에러 기본값으로 다시 설정
+    dispatch(registerUser({ name, email, password, navigate }));  //register User api 호출 작업을 dispatch로 부름
   };
 
   const handleChange = (event) => {
