@@ -6,10 +6,13 @@ import { useSearchParams } from "react-router-dom";
 const SearchBox = ({ searchQuery, setSearchQuery, placeholder, field }) => {
   const [query] = useSearchParams();
   const [keyword, setKeyword] = useState(query.get(field) || "");
+//keyword 검색어 캐치
 
   const onCheckEnter = (event) => {
     if (event.key === "Enter") {
       setSearchQuery({ ...searchQuery, page: 1, [field]: event.target.value });
+      //serchQuery는 객체,field = name
+      //엔터치면 setserchQuery으로로 객체 업데이트
     }
   };
   return (

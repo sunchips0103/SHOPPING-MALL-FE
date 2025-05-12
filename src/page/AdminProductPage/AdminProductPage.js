@@ -14,7 +14,7 @@ import {
 
 const AdminProductPage = () => {
   const navigate = useNavigate();
-  const [query] = useSearchParams();
+  const [query,setQuery] = useSearchParams();
   const dispatch = useDispatch();
   const { productList, totalPageNum } = useSelector((state) => state.product);
   const [showDialog, setShowDialog] = useState(false);
@@ -38,11 +38,18 @@ const AdminProductPage = () => {
 
   //상품리스트 가져오기 (url쿼리 맞춰서)
   useEffect(()=>{
-    dispatch(getProductList())
-  },[])
+    dispatch(getProductList({ ...searchQuery }))
+  },[query])
 
   useEffect(() => {
     //검색어나 페이지가 바뀌면 url바꿔주기 (검색어또는 페이지가 바뀜 => url 바꿔줌=> url쿼리 읽어옴=> 이 쿼리값 맞춰서  상품리스트 가져오기)
+    if(searchQuery.name ===""){
+      delete searchQuery.name;
+    }
+    console.log("qqq",searchQuery);
+    const params = new URLSearchParams(searchQuery);
+    const query = params.toString();
+    navigate("?"+query);
   }, [searchQuery]);
 
   const deleteItem = (id) => {
@@ -66,6 +73,9 @@ const AdminProductPage = () => {
     //  쿼리에 페이지값 바꿔주기
   };
 
+  // serchbox에서 검색어를 읽어온다 =>엔터를 치면 -> serchQuery객체가 업데이트가 됨 ex){name: 스트레이트 팬츠}
+  //=>serchQuery 객체 안에 아이템 기준으로 url을 새로 생성해서 호출 &name=스트레이트+팬츠
+  //=>url 쿼리 읽어오기 => url쿼리 기준으로 BE에 검색조건과 함께 호출  
   return (
     <div className="locate-center">
       <Container>

@@ -1,44 +1,47 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
+import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
 import {
   faBars,
   faBox,
   faSearch,
   faShoppingBag,
-} from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../features/user/userSlice";
+} from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../features/user/userSlice';
 
 const Navbar = ({ user }) => {
+  console.log('Navbar user 정보:', user);
+
   const dispatch = useDispatch();
   const { cartItemCount } = useSelector((state) => state.cart);
-  const isMobile = window.navigator.userAgent.indexOf("Mobile") !== -1;
+  const isMobile = window.navigator.userAgent.indexOf('Mobile') !== -1;
   const [showSearchBox, setShowSearchBox] = useState(false);
   const menuList = [
-    "여성",
-    "Divided",
-    "남성",
-    "신생아/유아",
-    "아동",
-    "H&M HOME",
-    "Sale",
-    "지속가능성",
+    '여성',
+    'Divided',
+    '남성',
+    '신생아/유아',
+    '아동',
+    'H&M HOME',
+    'Sale',
+    '지속가능성',
   ];
   let [width, setWidth] = useState(0);
   let navigate = useNavigate();
   const onCheckEnter = (event) => {
-    if (event.key === "Enter") {
-      if (event.target.value === "") {
-        return navigate("/");
+    if (event.key === 'Enter') {
+      if (event.target.value === '') {
+        return navigate('/');
       }
       navigate(`?name=${event.target.value}`);
     }
   };
   const handleLogout = () => {
     dispatch(logout());
+    navigate('/');
   };
   return (
     <div>
@@ -73,7 +76,7 @@ const Navbar = ({ user }) => {
           ))}
         </div>
       </div>
-      {user && user.level === "admin" && (
+      {user && user.level === 'admin' && (
         <Link to="/admin/product?page=1" className="link-area">
           Admin page
         </Link>
@@ -89,29 +92,29 @@ const Navbar = ({ user }) => {
               <div onClick={handleLogout} className="nav-icon">
                 <FontAwesomeIcon icon={faUser} />
                 {!isMobile && (
-                  <span style={{ cursor: "pointer" }}>로그아웃</span>
+                  <span style={{ cursor: 'pointer' }}>로그아웃</span>
                 )}
               </div>
             ) : (
-              <div onClick={() => navigate("/login")} className="nav-icon">
+              <div onClick={() => navigate('/login')} className="nav-icon">
                 <FontAwesomeIcon icon={faUser} />
-                {!isMobile && <span style={{ cursor: "pointer" }}>로그인</span>}
+                {!isMobile && <span style={{ cursor: 'pointer' }}>로그인</span>}
               </div>
             )}
-            <div onClick={() => navigate("/cart")} className="nav-icon">
+            <div onClick={() => navigate('/cart')} className="nav-icon">
               <FontAwesomeIcon icon={faShoppingBag} />
               {!isMobile && (
-                <span style={{ cursor: "pointer" }}>{`쇼핑백(${
+                <span style={{ cursor: 'pointer' }}>{`쇼핑백(${
                   cartItemCount || 0
                 })`}</span>
               )}
             </div>
             <div
-              onClick={() => navigate("/account/purchase")}
+              onClick={() => navigate('/account/purchase')}
               className="nav-icon"
             >
               <FontAwesomeIcon icon={faBox} />
-              {!isMobile && <span style={{ cursor: "pointer" }}>내 주문</span>}
+              {!isMobile && <span style={{ cursor: 'pointer' }}>내 주문</span>}
             </div>
             {isMobile && (
               <div className="nav-icon" onClick={() => setShowSearchBox(true)}>
