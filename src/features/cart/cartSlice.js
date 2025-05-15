@@ -23,7 +23,7 @@ export const addToCart = createAsyncThunk(
         status:"success",
       })
     );
-    return response.data //TODO
+    return response.data.cartItemQty; //TODO
     }catch(error){
       dispatch(
         showToastMessage({
@@ -73,7 +73,7 @@ const cartSlice = createSlice({
     .addCase(addToCart.fulfilled,(state,action)=>{
       state.loading=false;
       state.error="";
-      //TODO
+      state.cartItemCount = action.payload;
     })
     .addCase(addToCart.rejected,(state,action)=>{
       state.loading=false;
