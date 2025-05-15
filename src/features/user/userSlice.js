@@ -29,6 +29,7 @@ export const loginWithGoogle = createAsyncThunk(
 );
 
 export const logout = () => (dispatch) => {};
+
 export const registerUser = createAsyncThunk(
   "user/registerUser",
   async (
