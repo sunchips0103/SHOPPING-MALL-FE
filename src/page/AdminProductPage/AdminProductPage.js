@@ -11,7 +11,6 @@ import {
   deleteProduct,
   setSelectedProduct,
 } from "../../features/product/productSlice";
-import { slight } from "@cloudinary/url-gen/qualifiers/fontHinting";
 
 const AdminProductPage = () => {
   const navigate = useNavigate();

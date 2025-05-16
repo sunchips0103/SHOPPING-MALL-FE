@@ -21,7 +21,16 @@ export const getProductList = createAsyncThunk(
 
 export const getProductDetail = createAsyncThunk(
   "products/getProductDetail",
-  async (id, { rejectWithValue }) => {
+  async (id, { dispatch,rejectWithValue }) => {
+    try{
+      const response = await api.get(`/product/${id}`);
+      if(response.status!==200)throw new Error(response.error);
+      dispatch(showToastMessage({message:"상품 보기 완료", status: "success"}));
+
+      return response.data.data;
+    }catch(error){
+      rejectWithValue(error.error);
+    }
   }
 );
 
@@ -138,6 +147,18 @@ const productSlice = createSlice({
       state.error = action.payload;
       state.success = false;
     })
+    .addCase(getProductDetail.pending,(state,action)=>{
+        state.loading=true;
+      })
+      .addCase(getProductDetail.fulfilled,(state,action)=>{
+        state.loading=false;
+        state.selectedProduct=action.payload;
+        state.error="";
+      })
+      .addCase(getProductDetail.rejected,(state,action)=>{
+        state.loading=false;
+        state.error=action.payload;
+      })
   },
 });
 
