@@ -41,6 +41,7 @@ const PaymentPage = () => {
       }
     }
   }, [orderNum]);
+//맨 처음 페이지 로딩할때는 넘어가고 오더번호를 받으면 성공페이지로 넘어가가
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -163,6 +164,11 @@ const PaymentPage = () => {
                 </div>
                 <div>
                   <h2 className="payment-title">결제 정보</h2>
+                  <PaymentForm 
+                    cardValue={cardValue} 
+                    handleInputFocus={handleInputFocus} 
+                    handlePaymentInfoChange={handlePaymentInfoChange}
+                  />
                 </div>
 
                 <Button
