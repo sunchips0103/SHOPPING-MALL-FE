@@ -29,7 +29,7 @@ const PaymentPage = () => {
     zip: "",
   });
   const { cartList, totalPrice } = useSelector((state) => state.cart);
-  console.log("shipinfo",shipInfo);
+  console.log("shipInfo",shipInfo);
 
   useEffect(() => {
     // 오더번호를 받으면 어디로 갈까?
@@ -50,7 +50,7 @@ const PaymentPage = () => {
     dispatch(
       createOrder({
         totalPrice,
-        shipInfo:{address,city,zip},
+        shipTo:{address,city,zip},
         contact:{firstName,lastName,contact},
         orderList:cartList.map((item)=>{
           return{
